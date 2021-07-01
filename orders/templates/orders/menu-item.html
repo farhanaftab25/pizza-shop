@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/3476aef765.js" crossorigin="anonymous"></script>
+    <!-- link to google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'orders/css/normalize.css' %}"/>
+    <link rel="stylesheet" href="{% static 'orders/css/style.css' %}"/>
+    <script src="{% static 'orders/js/app.js' %}"></script>
+    <title>{{ first_item.item.name }}</title>
+</head>
+<body>
+    <section class="item">
+        <a class="logo-link" href="{% url 'menu' %}">
+            Pinnochio’s Pizza & Subs
+        </a>
+        <div class="card">
+            <div class="card-content">
+                <img src="{% static 'orders/images/special3.jpg' %}" alt="Shop picture" class="card-image">
+            </div>
+            <form action="{% url 'cart' %}" method="POST" class="card-form">
+                {% csrf_token %}
+                <input type="hidden" value="{{ item_id }}" name="item_id">
+                <h2 class="card-title">{{ first_item.item.name }} <span class="accent-bg">Price: &nbsp;<strong>{{ first_item.price }}</strong></span></h2>
+                {% if first_item.size.name != 'none' %}
+                    <div class="form-group">
+                        <label for="size">Size</label><br>
+                        <select name="size" id="size" class="form-control">
+                            {% for i in item %}
+                                <option value="{{ i.size.name }}">{{ i.size.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        {% for i in item %}
+                            <p>{{ i.size.name }} | {{ i.price }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="quantity">Quantity</label><br>
+                    <input type="numbmer" name="quantity" id="quantity" required>
+                </div>
+                {% if toppings %}
+                    <div class="form-group">
+                        <label for="toppings">Select Topping <small class="accent-bg"><strong>+0.50</strong></small></label><br>
+                        <small class="accent-bg"><strong>Max limit 5</strong></small><br>
+                        {% if len_of_toppings == 5 %}
+                            <small>This is our special pizza with these toppings already available: </small>
+                            {% for topping in toppings %}
+                                <p>{{ topping.name }}</p>
+                            {% endfor %}
+                        {% else %}
+                            {% for topping in toppings %}
+                                {{ topping.name }}: <input class="toppings" type="checkbox" name="toppings" value="{{ topping.name }}"><br>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                {% endif %}
+                <div class="error">
+                    
+                </div>
+                <input type="submit" value="Add to Cart" class="btn btn-card"><a href="cart.html" class="cart-link">Take me to Cart</a>
+            </form>
+        </div>
+    </section>
+    <footer class="footer text-center">
+        <p>Copyright &copy; 2020</p>
+    </footer>
+</body>
+</html>

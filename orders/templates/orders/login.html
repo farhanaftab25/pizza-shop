@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/3476aef765.js" crossorigin="anonymous"></script>
+    <!-- link to google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'orders/css/normalize.css' %}"/>
+    <link rel="stylesheet" href="{% static 'orders/css/style.css' %}"/>
+    <title>Login</title>
+</head>
+<body>
+    <section class="login">
+        <div class="login-form">
+            {% if messages %}
+                <ul class="messages list-unstyled text-center">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <h1 class="form-title">Join <a href="{% url 'index' %}" class="rm-link">Pinocchio's Pizza & Subs</a></h1>
+            <p class="form-description">Noch's has reached a landmark this year......50 years in business! We've been feeding Harvard and the surrounding area since 1966!</p>
+            <form class="form" action="" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" placeholder="Username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Password" class="form-control" required>
+                </div>
+                <input type="submit" value="Sign In" class="btn btn-login"><a href="{% url 'register' %}" class="register-link">Not member</a>
+            </form>
+        </div>
+        <section class="register-bg">
+        </section>
+    </section>
+    
+</body>
+</html>

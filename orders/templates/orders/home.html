@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/3476aef765.js" crossorigin="anonymous"></script>
+    <!-- link to google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'orders/css/normalize.css' %}"/>
+    <link rel="stylesheet" href="{% static 'orders/css/style.css' %}"/>
+    <script src="{% static 'orders/js/app.js' %}"></script>
+    <title>home</title>
+</head>
+<body>
+    <section class="item">
+        <a class="logo-link" href="{% url 'menu' %}">
+            Pinnochio’s Pizza & Subs
+        </a>
+        <p class="text-center">{{ user.username }}</p>
+        <ul class="list-unstyled text-center">
+            {% for order in orders %}
+                <li>{{order.total}} -- {% if order.status == False %}
+                    <span>Your order is on the way (pending)</span>
+                {% else %}
+                    <span>Order Completed</span>
+                {% endif %}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    <footer class="footer text-center">
+        <p>Copyright &copy; 2020</p>
+    </footer>
+</body>
+</html>

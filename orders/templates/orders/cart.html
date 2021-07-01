@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/3476aef765.js" crossorigin="anonymous"></script>
+    <!-- link to google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'orders/css/normalize.css' %}"/>
+    <link rel="stylesheet" href="{% static 'orders/css/style.css' %}"/>
+    <title>Cart</title>
+</head>
+<body>
+    <div class="container">
+        <section class="cart">
+            <a class="logo-link py-1" href="{% url 'menu' %}">
+                Pinnochio’s Pizza & Subs
+            </a>
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Size</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in carts %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            {% if item.size == 'none' %}
+                                <td>--</td>
+                            {% else %}
+                                <td>{{ item.size }}</td>
+                            {% endif %}
+                            <td>${{ item.price }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="3">
+                            <strong>total:</strong>
+                        </td>
+                        <td>${{ total }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <i class="fas fa-arrow-left"></i><a href="{% url 'menu' %}" class="con-link rm-link"> Continue Shopping</a>
+            {% if carts %}
+                <form action="{% url 'remove_cart' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="length" id="" value="{{ length_of_cart }}">
+                    <input type="hidden" name="total" id="" value="{{ total }}">
+                    <input type="submit" class="btn btn-checkout" value="Checkout">
+                </form>
+            {% endif %}
+        </section>
+    </div>
+    <footer class="footer text-center">
+        <p>Copyright &copy; 2020 {{ item_id }}</p>
+    </footer>
+</body>
+</html>

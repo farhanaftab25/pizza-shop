@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/3476aef765.js" crossorigin="anonymous"></script>
+    <!-- link to google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'orders/css/normalize.css' %}"/>
+    <link rel="stylesheet" href="{% static 'orders/css/style.css' %}"/>
+    <title>Menu</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a class="logo-link" href="{% url 'index' %}">
+                Pinnochio’s Pizza & Subs
+            </a>
+            <nav class="nav">
+                <ul class="nav-list"> 
+                    <li class="nav-list-item"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+                    <li class="nav-list-item"><a href="#" class="nav-link">Menu</a></li>
+                    <li class="nav-list-item"><a href="#" class="nav-link">Contact</a></li>
+                    <li class="nav-list-item"><a href="#" class="nav-link">About us</a></li>
+                </ul>
+            </nav>
+            <ul class="social-list list-unstyled">
+                <li class="social-item"><a href="#" class="social-link"><i class="fab fa-facebook-square"></i></a></li>
+                <li class="social-item"><a href="#" class="social-link"><i class="fab fa-twitter"></i></a></li>
+                <li class="social-item"><a href="#" class="social-link"><i class="fab fa-instagram"></i></a></li>
+            </ul>
+            <ul class="auth-list list-unstyled">
+                <li class="auth-item">
+                    <a href="{% url 'cart' %}" class="rm-link"><i class="fas fa-shopping-cart"></i> Cart </a> |
+                    {% if user.is_authenticated %}
+                        <span class="accent-bg">{{ user.username }}</span> | <a href="{% url 'logout' %}" class="rm-link"> Logout</a>
+                    {% else %}  
+                        <a href="{% url 'login' %}" class="rm-link"> Login</a> | <a href="{% url 'register' %}" class="rm-link">Sign Up</a>
+                    {% endif %}
+                </li> 
+            </ul>
+            <div class="info text-center">
+                <p class="phone-number">617-876-4897</p>
+                <address class="address">74 Winthrop Street
+                    Harvard Square</address>
+            </div>
+        </div>
+        
+        <section class="hero">
+            <h1 class="hero-title">Welcome to Pinocchio's Pizza & Subs</h1>
+            <p class="hero-body">Noch's has reached a landmark this year......50 years in business! We've been feeding Harvard and the surrounding area since 1966!</p>
+            <a href="#" class="btn btn-register">Register</a>
+        </section>
+    </header>
+    
+    <section class="category">
+        <ul class="category-list list-unstyled">
+            {% for category in categories %}
+                <li class="category-item"><a href="{% url 'menu_dish' category.id %}" class="category-link">{{ category }} </a></li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="specials text-center">
+        <h2 class="section-title section-title-center text-center">{{ category.name }}</h2>
+        {% for item in items %}
+            <div class="col">
+                <a href="{% url 'menu_item' category_id=category.id item_id=item.id  %}">
+                    <img src="{% static 'orders/images/special3.jpg' %}" alt="Shop picture">
+                    <h3>{{ item }}</h3>
+                </a>
+            </div>
+        {% empty %}
+            <h3 class="no-item text-center">No item</h3>
+        {% endfor %}
+    </section>
+
+    <footer class="footer text-center">
+        <p>2020 copyright &copy;</p>
+    </footer>
+</body>
+</html>
