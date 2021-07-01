@@ -2,13 +2,13 @@
 
 Web Programming with Python and JavaScript
 
-## static:
-    * static folder contain 3 folders
-        * images
-        * css
-        * js
-## tempaltes:
-    * containers all of the templates 
+## Static:
+   static folder contain 3 folders
+   * images
+   * css
+   * js
+## templates:
+   containers all of the templates 
         * cart.html -> Shows user item in table form
         * home.html -> just displays username and status about the orders
         * index.html -> main page for the whole site
