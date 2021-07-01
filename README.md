@@ -1,20 +1,21 @@
 # Project 3
 
 Web Programming with Python and JavaScript
-* static:
-    static folder contain 3 folders
-     --- images
-     --- css
-     --- js
-* tempaltes:
-    containers all of the templates 
-     --- cart.html -> Shows user item in table form
-     --- home.html -> just displays username and status about the orders
-     --- index.html -> main page for the whole site
-     --- menu.html -> displays all the menu
-     --- menu-item.html -> menu item shows specific item in category
+
+## static:
+    * static folder contain 3 folders
+        * images
+        * css
+        * js
+## tempaltes:
+    * containers all of the templates 
+        * cart.html -> Shows user item in table form
+        * home.html -> just displays username and status about the orders
+        * index.html -> main page for the whole site
+        * menu.html -> displays all the menu
+        * menu-item.html -> menu item shows specific item in category
      
-*  moels.py 
+##  moels.py 
      --- Category model
      ---- Item -> stores just the name of items
      ---- ItemPrice -> have foreign key to size model and Item model, also contain price of each item
@@ -22,10 +23,10 @@ Web Programming with Python and JavaScript
      --- Order -> order is used to store order information 
      
 
-*  urls.py
+##  urls.py
     contains all of the mapping of routes to individual view functions
 
-* views.py 
+## views.py 
      ---- menu -> displays all of the categories
      ---- menu_dish -> individual dishes in the cateogry like pasta have alot of items.
      --- menu_item -> used to show individual item in the cateogry in differnet html page.
